@@ -19,20 +19,23 @@ def main():
 # Цикл работает пока пользователь не угадает все слова
     while player.used_words_number() < word.len_subwords():
         user_word = input().lower()
-        if user_word not in ["stop", "стоп"]:
+        if len(user_word) < 3:
+            print('Cлишком короткое слово')
+        else:
+            if user_word not in ["stop", "стоп"]:
 
-            if word.check_word(user_word):
-                if player.find_in_used(user_word):
-                    print('Слово уже использовано')
+                if word.check_word(user_word):
+                    if player.find_in_used(user_word):
+                        print('Слово уже использовано')
+                    else:
+                        player.used_word_append(user_word)
+                        print(f'Верно')
+
                 else:
-                    player.used_word_append(user_word)
-                    print(f'Верно {player.used_words} {player.used_words_number()}')
+                    print('Неверно')
 
             else:
-                print('Неверно')
-
-        else:
-            break
+                break
 
     print(f'\nИгра завершена, вы угадали {player.used_words_number()} слов!')
 
